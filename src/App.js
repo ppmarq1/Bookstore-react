@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import CategoryPage from './components/CategoryPage';
-import BookPage from './components/BookPage';
+import BooksPage from './components/BookPage';
 
 const App = () => (
   <div className="App">
@@ -27,7 +27,7 @@ const App = () => (
       </ul>
     </nav>
     <Routes>
-      <Route exact path="/" element={<BookPage />} />
+      <Route exact path="/" element={<BooksPage />} />
       <Route exact path="/categories" element={<CategoryPage />} />
     </Routes>
   </div>

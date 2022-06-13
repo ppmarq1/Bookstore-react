@@ -1,22 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { postBook } from '../redux/books/books';
 
-const AddNewBook = () => (
-  <div>
-    <h2>Add New Book</h2>
-    <input type="text" placeholder="Book title" />
-    <form action="#">
-      <select name="books" id="books">
-        <option value="">Catefory</option>
-        <option value="biography">Biography</option>
-        <option value="romance">Romance</option>
-        <option value="action">Action</option>
-        <option value="health">Health</option>
+const AddNewBook = () => {
+  const [inputValues, setInputValues] = useState({
+    title: '',
+    author: '',
+    id: '',
+    category: '',
+  });
+  const dispatch = useDispatch();
+  const [errorMsg, setError] = useState('');
 
+  const submitBookToStore = (e) => {
+    e.preventDefault();
+    const id = uuidv4();
+    const { title, author, category } = inputValues;
+    const newBook = {
+      id,
+      title,
+      author,
+      category,
+    };
+
+    if (newBook.title.trim().length === 0) {
+      setError('Add a title to submit...');
+      setInputValues(newBook);
+    } else if (newBook.category === '') {
+      setError('Select Category to submit...');
+      setInputValues(newBook);
+    } else {
+      setError('');
+      dispatch(postBook(newBook));
+      setInputValues({
+        title: '',
+        author: '',
+        id: '',
+        category: '',
+      });
+    }
+  };
+
+  const onChange = (e) => {
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  return (
+    <form className="add-book-section" onSubmit={submitBookToStore}>
+      <h1>ADD NEW BOOK</h1>
+      <input
+        type="text"
+        placeholder="Book title"
+        name="title"
+        onChange={onChange}
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Book author"
+        name="author"
+        onChange={onChange}
+        required
+      />
+      <select
+        placeholder="categories"
+        name="category"
+        onChange={onChange}
+        required
+      >
+        <option value="">Category</option>
+        <option value="Romance">Romance</option>
+        <option value="Biography">Biography</option>
+        <option value="Fiction">Action</option>
+        <option value="Health">Health</option>
       </select>
-
-      <button type="submit"> Add Book</button>
+      <button type="submit" onClick={submitBookToStore}>
+        Add Book
+      </button>
+      <small>{errorMsg}</small>
     </form>
-  </div>
-);
+  );
+};
 
 export default AddNewBook;

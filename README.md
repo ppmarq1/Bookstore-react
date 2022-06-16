@@ -7,7 +7,7 @@
 ## Built With
 
 - Major languages: HTML CSS & JavaScript
-- Framework(Library): React
+- Framework(Library): React & Redux
 - Technologies used
 
 ## Live Demo
@@ -42,6 +42,7 @@
 ### Create React App
 
 - npx create-react-app my-app
+- npm install redux react-redux
 - cd my-app
 - npm start
 

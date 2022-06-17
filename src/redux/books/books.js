@@ -1,7 +1,8 @@
+// actions type
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
 const FETCH_BOOKS = 'bookStore/books/FETCH_BOOKS';
-const urlLink = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/nLWTCtKLtMsTD4SLP7jP/books';
+const urlLink = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/nGPtGYQtMsTD4RLP7jGM/books';
 
 const initialState = [];
 
@@ -40,14 +41,14 @@ export const fetchBooksList = () => async (dispatch) => {
   const booksList = await fetch(`${urlLink}`)
     .then((response) => response.json());
   const booksID = Object.keys(booksList);
-  const formBooks = [];
-  booksID.map((key) => formBooks.push({
+  const formatedBooks = [];
+  booksID.map((key) => formatedBooks.push({
     id: key,
     title: booksList[key][0].title,
     author: booksList[key][0].author,
     category: booksList[key][0].category,
   }));
-  dispatch(fetchBook(formBooks));
+  dispatch(fetchBook(formatedBooks));
 };
 
 export const postBook = (newBook) => async (dispatch) => {

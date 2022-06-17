@@ -247,7 +247,7 @@ body {
   border: solid 1px #e8e8e8;
   background-color: #fff;
   padding: 12px;
-  width: 55%;
+  width: 28%;
 }
 
 :is(input, select):focus {
